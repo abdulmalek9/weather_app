@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/widgets/weather_day_info.dart';
 import 'package:weather_app/widgets/weather_widget.dart';
 
 class HomeView extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeView extends StatelessWidget {
                 colors: [Color(0xff0d2843), Color(0xff144875)]),
           ),
           child: const Padding(
-            padding: EdgeInsets.only(top: 80.0, right: 16, left: 16),
+            padding: EdgeInsets.only(top: 60.0, right: 16, left: 16),
             child: Column(
               children: [
                 WeatherWidget(
@@ -27,10 +28,10 @@ class HomeView extends StatelessWidget {
                   tempr: "18",
                 ),
                 SizedBox(
-                  height: 44,
+                  height: 55,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0),
+                  padding: EdgeInsets.only(left: 12.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -40,6 +41,21 @@ class HomeView extends StatelessWidget {
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      WeatherDayInformation(),
+                      WeatherDayInformation(),
+                      WeatherDayInformation(),
+                      WeatherDayInformation(),
+                    ],
                   ),
                 ),
               ],

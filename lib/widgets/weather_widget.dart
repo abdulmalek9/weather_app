@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 class WeatherWidget extends StatelessWidget {
   const WeatherWidget({
@@ -17,14 +18,19 @@ class WeatherWidget extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          width: (MediaQuery.of(context).size.width - 120),
-          height: 250,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: const Color(0xff386fb4),
+          width: (MediaQuery.of(context).size.width - 100),
+          height: 225,
+          decoration: const BoxDecoration(
+            border: GradientBoxBorder(
+              width: 1.5,
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [Color(0xff245181), Color(0xff4076c3)],
+              ),
             ),
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
-            color: const Color(0xff1a4e7e),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+            color: Color(0xff1a4e7e),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,11 +111,11 @@ class WeatherWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 144,
-          right: -60,
+          top: 128,
+          right: 30,
           child: Image.asset(
             weatherImage,
-            width: 400,
+            width: 200,
             height: 200,
           ),
         ),
