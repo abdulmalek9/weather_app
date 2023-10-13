@@ -15,9 +15,9 @@ class BackGroundWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Color(0xff0d2843), Color(0xff144875)]),
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Color(0xff0d2843), Color(0xff124974)]),
         ),
         child: SingleChildScrollView(
             child: Padding(
