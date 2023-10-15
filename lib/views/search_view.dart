@@ -9,6 +9,9 @@ class CustomSearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
+        SizedBox(
+          height: 40,
+        ),
         Align(
           alignment: Alignment.topLeft,
           child: Text(
@@ -32,7 +35,19 @@ class CustomSearchView extends StatelessWidget {
           tempValue: "18",
           tempH: "20",
           tempL: "13",
-        )
+        ),
+        SizedBox(
+          height: 16.0,
+        ),
+        CustomWeatherCard(
+          location: "Homs",
+          subTitle: "3:36 AM",
+          weatherState: "Mostly Cloudy",
+          weatherImage: "assets/weather_pic/clouds0.jpg",
+          tempValue: "24",
+          tempH: "28",
+          tempL: "15",
+        ),
       ],
     );
   }
