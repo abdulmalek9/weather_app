@@ -17,6 +17,7 @@ class LineTempValueBuilder extends StatelessWidget {
       children: [
         TempValueBuilder(
           tembNum: tempMorningNum,
+          isforSmall: true,
         ),
         const SizedBox(
           width: 8.0,
@@ -49,6 +50,7 @@ class LineTempValueBuilder extends StatelessWidget {
         ),
         TempValueBuilder(
           tembNum: tempNightNum,
+          isforSmall: true,
         ),
       ],
     );

@@ -41,6 +41,7 @@ class WeatherDayInformation extends StatelessWidget {
           const TempValueBuilder(
             tembNum: "18",
             tempFormat: "C",
+            isforSmall: false,
           ),
           const SizedBox(
             height: 12,

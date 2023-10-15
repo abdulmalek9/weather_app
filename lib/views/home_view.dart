@@ -12,8 +12,8 @@ class HomeView extends StatelessWidget {
       body: Stack(children: [
         SingleChildScrollView(
           child: BackGroundWidget(
-            childWidget: CustomSearchView(),
-          ),
+              childWidget: CustomSearchView() // HomeViewBuilder(),
+              ),
         ),
         Align(
             alignment: Alignment.bottomCenter,
