@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/views/search_view.dart';
 import 'package:weather_app/widgets/back_ground_widget.dart';
 import 'package:weather_app/widgets/custom_bottom_nav_bar.dart';
-import 'package:weather_app/widgets/home_view_builder.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
       body: Stack(children: [
         SingleChildScrollView(
           child: BackGroundWidget(
-            childWidget: HomeViewBuilder(),
+            childWidget: CustomSearchView(),
           ),
         ),
         Align(
