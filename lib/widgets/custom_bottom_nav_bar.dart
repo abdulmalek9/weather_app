@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-var currentIndex = 0;
+import 'package:weather_app/views/search_view.dart';
+import 'package:weather_app/widgets/back_ground_widget.dart';
+import 'package:weather_app/widgets/home_view_builder.dart';
 
 class CustomButtomNavigationBar extends StatefulWidget {
   const CustomButtomNavigationBar({
@@ -13,78 +14,60 @@ class CustomButtomNavigationBar extends StatefulWidget {
 }
 
 class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  final List<Widget> tabs = [
+    const HomeViewBuilder(),
+    // const LocationView(),
+    const CustomSearchView(),
+  ];
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.all(20),
-      height: size.width * .168,
-      decoration: BoxDecoration(
-        color: const Color(0xff152f4a),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(.15),
-            blurRadius: 30,
-            offset: const Offset(0, 10),
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: BackGroundWidget(
+            childWidget: tabs.elementAt(_selectedIndex), // HomeViewBuilder(),
           ),
-        ],
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: ListView.builder(
-        itemCount: 3,
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-        itemBuilder: (context, index) => InkWell(
-          onTap: () {
-            setState(
-              () {
-                currentIndex = index;
-              },
-            );
-          },
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 6.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1000),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  margin: EdgeInsets.only(
-                    bottom: index == currentIndex ? 0 : size.width * .029,
-                    right: 25, //size.width * .0422,
-                    left: 30, //size.width * .0422,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment: const Alignment(0.0, 1.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: BottomNavigationBar(
+                unselectedItemColor: Colors.white.withOpacity(0.5),
+                backgroundColor: Colors.white.withOpacity(0.05),
+                elevation: 0,
+                currentIndex: _selectedIndex,
+                selectedItemColor: const Color(0xff2e93ee),
+                onTap: _onItemTapped,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.cloud_queue_rounded),
+                    label: 'Weather',
                   ),
-                  width: size.width * .128,
-                  height: index == currentIndex ? size.width * .014 : 0,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(10),
-                    ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    label: 'Location',
                   ),
-                ),
-                Icon(
-                  listOfIcons[index],
-                  size: size.width * .076,
-                  color: index == currentIndex
-                      ? Colors.white
-                      : Colors.grey.shade600,
-                ),
-                SizedBox(height: size.width * .03),
-              ],
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings_outlined),
+                    label: 'Settings',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
-
-  List<IconData> listOfIcons = [
-    Icons.cloud_queue_rounded,
-    Icons.search,
-    Icons.settings_outlined,
-  ];
 }
