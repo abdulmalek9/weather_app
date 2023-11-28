@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/search_view.dart';
+import 'package:weather_app/views/setting_view.dart';
 import 'package:weather_app/widgets/back_ground_widget.dart';
 import 'package:weather_app/widgets/home_view_builder.dart';
 
@@ -24,8 +25,8 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
 
   final List<Widget> tabs = [
     const HomeViewBuilder(),
-    // const LocationView(),
     const CustomSearchView(),
+    const SettingView(),
   ];
   @override
   Widget build(BuildContext context) {
