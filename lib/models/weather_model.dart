@@ -2,9 +2,9 @@ class WeatherModel {
   final String cityname;
   final String wetherState;
   final String? icon;
-  final String maxTmp;
-  final String minTmp;
-  final List<String> dayTemp;
+  final double maxTmp;
+  final double minTmp;
+  final List<double> dayTemp;
   final List<String> dayHoures;
 
   WeatherModel(
@@ -16,9 +16,9 @@ class WeatherModel {
       required this.dayTemp,
       required this.dayHoures});
 
-  factory WeatherModel.fromjson(data) {
+  factory WeatherModel.fromJson(data, String cityName) {
     return WeatherModel(
-      cityname: data,
+      cityname: cityName,
       wetherState: data['list'][0]['weather'][0]['main'],
       maxTmp: data['list'][0]['main']['temp_max'],
       minTmp: data['list'][0]['main']['temp_min'],
