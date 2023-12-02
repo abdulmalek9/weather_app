@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:weather_app/models/weather_model.dart';
 
 class WeatherService {
-  String apiKey = '76dddb344ddbd402181c2a52b0dc9fd1';
+  String apiKey = //put your api key here;
   String baseUrl = 'https://api.openweathermap.org/data';
   final Dio dio;
 
