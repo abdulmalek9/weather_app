@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
+import 'package:weather_app/cubit/get_weather_cubit/weather_cubit_cubit.dart';
 
 class CustomSearchbar extends StatefulWidget {
   const CustomSearchbar({super.key});
@@ -75,21 +77,23 @@ class _CustomSearchbarState extends State<CustomSearchbar> {
 //function code of filter icon with drop down
 
 //functoin check if text field null or do search
-  void onSubm(String value) {
+  void onSubm(String value) async {
     if (value.isEmpty) {
       tcolor = Colors.red.withOpacity(0.5);
       color = Colors.red;
       setState(() {});
       log('field is required');
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) {
-            return const Scaffold();
-          },
-        ),
-      );
+      await BlocProvider.of<WeatherCubitCubit>(context)
+          .getWeatherInfo(cityName: value);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) {
+      //       return const Scaffold();
+      //     },
+      //   ),
+      // );
     }
   }
 

@@ -4,8 +4,8 @@ class WeatherModel {
   final String? icon;
   final double maxTmp;
   final double minTmp;
-  final List<double> dayTemp;
-  final List<String> dayHoures;
+  final double dayTemp; // List<double>
+  final String dayHoures; //List<String>
 
   WeatherModel(
       {required this.cityname,

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:weather_app/models/weather_model.dart';
 
 class WeatherService {
-  String apiKey = //put your api key here;
+  String apiKey = "76dddb344ddbd402181c2a52b0dc9fd1"; //put your api key here;
   String baseUrl = 'https://api.openweathermap.org/data';
   final Dio dio;
 
@@ -14,7 +14,7 @@ class WeatherService {
     try {
       Response response = await dio
           .get('$baseUrl/2.5/forecast?q=$cityname&units=metric&appid=$apiKey');
-      log(response.data);
+      log("response.data ========== ${response.data}");
       return response.data;
     } on DioException catch (e) {
       final String errorMessage = e.response?.data['message'] ??
@@ -27,8 +27,10 @@ class WeatherService {
 
   Future<WeatherModel?> getWeatherInfo({required String cityname}) async {
     WeatherModel? info;
-    Response weatherinfo = await getweatheresponse(cityname: cityname);
-    info = WeatherModel.fromJson(weatherinfo.data, cityname);
+    Map<String, dynamic> weatherinfo =
+        await getweatheresponse(cityname: cityname);
+    log("model =============== ${weatherinfo['list']}");
+    info = WeatherModel.fromJson(weatherinfo, cityname);
 
     return info;
   }
