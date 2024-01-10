@@ -14,7 +14,29 @@ class HomeView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 6),
       child: BlocBuilder<WeatherCubitCubit, WeatherCubitState>(
           builder: (BuildContext context, WeatherCubitState state) {
-        return const HomeViewBuilder();
+        if (state is WeatherLoadedState) {
+          return const HomeViewBuilder();
+        } else if (state is WeatherCubitInitial) {
+          return const Center(
+            child: Text(
+              'Make a Search of location To Get Information of Weather',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text(
+              'There is an error Try again, or cheack your internet connection',
+              style: TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              ),
+            ),
+          );
+        }
       }),
     );
   }
