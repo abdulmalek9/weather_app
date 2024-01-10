@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/views/search_view.dart';
 import 'package:weather_app/views/setting_view.dart';
 import 'package:weather_app/widgets/back_ground_widget.dart';
-import 'package:weather_app/widgets/home_view_builder.dart';
+import 'package:weather_app/views/home_view.dart';
 
 class CustomButtomNavigationBar extends StatefulWidget {
   const CustomButtomNavigationBar({
@@ -24,7 +24,7 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
   }
 
   final List<Widget> tabs = [
-    const HomeViewBuilder(),
+    const HomeView(),
     const CustomSearchView(),
     const SettingView(),
   ];
