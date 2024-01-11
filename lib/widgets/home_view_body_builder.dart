@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/widgets/temp_info_per_dar.dart';
 import 'package:weather_app/widgets/weather_day_info.dart';
 import 'package:weather_app/widgets/weather_widget.dart';
@@ -6,22 +7,23 @@ import 'package:weather_app/widgets/weather_widget.dart';
 class HomeViewBuilder extends StatelessWidget {
   const HomeViewBuilder({
     super.key,
+    this.weatherModel,
   });
-
+  final WeatherModel? weatherModel;
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
         WeatherWidget(
-          cityTitle: "Damascuse",
-          weatherTitle: "Cloudy",
+          cityTitle: weatherModel!.cityname, //"Damascuse"
+          weatherTitle: weatherModel!.wetherState, //"Cloudy"
           weatherImage: "assets/Cloudy.png",
-          tempr: "18",
+          tempr: weatherModel!.dayTemp.toString(), //"18"
         ),
-        SizedBox(
+        const SizedBox(
           height: 55,
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: 6.0),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -34,10 +36,10 @@ class HomeViewBuilder extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WeatherDayInformation(),
@@ -46,29 +48,14 @@ class HomeViewBuilder extends StatelessWidget {
             WeatherDayInformation(),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 24.0,
         ),
-        Row(
-          children: [
-            Icon(
-              Icons.calendar_today_outlined,
-              color: Colors.white,
-              size: 16,
-            ),
-            SizedBox(
-              width: 6.0,
-            ),
-            Text(
-              "5-Day Forecast",
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            )
-          ],
-        ),
-        SizedBox(
+        const SectionTitle(),
+        const SizedBox(
           height: 8.0,
         ),
-        Column(
+        const Column(
           children: [
             TempInfoPerDay(
               day: "Today",
@@ -89,6 +76,32 @@ class HomeViewBuilder extends StatelessWidget {
               tempNightNum: "18",
             ),
           ],
+        )
+      ],
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  const SectionTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        Icon(
+          Icons.calendar_today_outlined,
+          color: Colors.white,
+          size: 16,
+        ),
+        SizedBox(
+          width: 6.0,
+        ),
+        Text(
+          "5-Day Forecast",
+          style: TextStyle(color: Colors.white, fontSize: 16),
         )
       ],
     );
