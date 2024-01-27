@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:intl/intl.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:weather_app/models/weather_model.dart';
@@ -15,6 +15,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
   // WeatherModel? weatherModelAllday;
   // List<WeatherModel>? weatherModelAllday;
   Map<String, dynamic> weatherModelAllday = {};
+  String dayName = "";
 
   getResponsePerDay({String? cityName, int? dataCount}) {
     int dayNum = 1, count = 0;
@@ -37,7 +38,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
         // weatherPerDay[key]!.add(WeatherModel.fromJson(
         //     weatherModelAllday, cityName,
         //     dayNumber: i));
-        print("for =========== $i");
+        // print("for =========== $i");
       } else {
         weatherPerDay[key]!.insert(count,
             WeatherModel.fromJson(weatherModelAllday, cityName!, dayNumber: i));
@@ -47,7 +48,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
         dayNum++;
         count = 0;
         key = "day $dayNum";
-        print("dayNum =========== $dayNum");
+        // print("dayNum =========== $dayNum");
       }
     }
   }
@@ -61,11 +62,24 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
       getResponsePerDay(cityName: cityName, dataCount: j);
       weatherInfo = weatherPerDay["day 1"];
       print("object=================");
+      getDayName();
       emit(WeatherLoadedState());
     } catch (e) {
       print("HHH=================");
       log(e.toString());
       emit(WeatherFailurState());
     }
+  }
+
+  getDayName({String? date}) {
+    // String date = weatherModelAllday['list'][1]['dt_txt'].split(" ")[0];
+    dynamic splitDate = date!.split(" ")[0].split('-');
+    String dateString = splitDate[2] + "-" + splitDate[1] + "-" + splitDate[0];
+    // Your date string from the API
+    DateTime parsedDate = DateFormat('dd-MM-yyyy').parse(dateString);
+    dayName = DateFormat('EEEE').format(parsedDate);
+    print('The day name is ${dayName.substring(0, 3)}');
+    print('The dateString name is $dateString');
+    return dayName.substring(0, 3);
   }
 }

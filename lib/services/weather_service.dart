@@ -33,7 +33,7 @@ class WeatherService {
 
     // WeatherModel? info;
     weatherinfo = await getweatheresponse(cityname: cityname);
-    log("model =============== ${weatherinfo['list'][39]}");
+    log("model =============== ${weatherinfo['list'][0]}");
     // info = WeatherModel.fromJson(weatherinfo, cityname);
     // log("message ${weatherinfo['list'].length}");
     // for (int i = 0; i < weatherinfo['list'].length; i++) {

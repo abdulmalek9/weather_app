@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/cubit/get_weather_cubit/weather_cubit_cubit.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/widgets/temp_info_per_dar.dart';
 import 'package:weather_app/widgets/weather_day_info.dart';
@@ -19,12 +21,12 @@ class HomeViewBuilder extends StatelessWidget {
       children: [
         WeatherWidget(
           cityTitle: weatherModel![0].cityname, //"Damascuse"
-          weatherTitle: weatherModel![1].wetherState, //"Cloudy"
+          weatherTitle: weatherModel![0].wetherState, //"Cloudy"
           weatherImage: "assets/Cloudy.png",
-          tempr: weatherModel![1].dayTemp.ceil().toString(), //"18"
+          tempr: weatherModel![0].dayTemp.ceil().toString(), //"18"
         ),
         const SizedBox(
-          height: 55,
+          height: 35,
         ),
         const Padding(
           padding: EdgeInsets.only(left: 6.0),
@@ -40,23 +42,29 @@ class HomeViewBuilder extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 8,
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            WeatherDayInformation(),
-            WeatherDayInformation(),
-            WeatherDayInformation(),
-            WeatherDayInformation(),
+            WeatherDayInformation(weatherModel: weatherModel![0]),
+            weatherModel!.isEmpty
+                ? WeatherDayInformation(weatherModel: weatherModel![1])
+                : const SizedBox(),
+            weatherModel!.length >= 2
+                ? WeatherDayInformation(weatherModel: weatherModel![2])
+                : const SizedBox(),
+            weatherModel!.length >= 3
+                ? WeatherDayInformation(weatherModel: weatherModel![3])
+                : const SizedBox(),
           ],
         ),
         const SizedBox(
-          height: 24.0,
+          height: 18.0,
         ),
         const SectionTitle(),
         const SizedBox(
-          height: 8.0,
+          height: 6.0,
         ),
         Column(
           children: [
@@ -72,7 +80,8 @@ class HomeViewBuilder extends StatelessWidget {
                       .toString(),
             ),
             TempInfoPerDay(
-                day: "Fri",
+                day: BlocProvider.of<WeatherCubitCubit>(context).getDayName(
+                    date: weatherPerDay["day 2"]![0].dayHoures), //"Fri",
                 weatherImage: "assets/Sunny.png",
                 tempMorningNum:
                     weatherPerDay["day 2"]![0].minTmp.ceil().toString(), //'13',
@@ -82,7 +91,8 @@ class HomeViewBuilder extends StatelessWidget {
                         .ceil()
                         .toString()),
             TempInfoPerDay(
-                day: "Sat",
+                day: BlocProvider.of<WeatherCubitCubit>(context)
+                    .getDayName(date: weatherPerDay["day 3"]![0].dayHoures),
                 weatherImage: "assets/Partly_cloudy.png",
                 tempMorningNum:
                     weatherPerDay["day 3"]![0].minTmp.ceil().toString(), //'13',

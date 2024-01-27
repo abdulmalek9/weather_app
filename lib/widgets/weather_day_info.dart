@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/widgets/temp_value_builder.dart';
 
 class WeatherDayInformation extends StatelessWidget {
-  const WeatherDayInformation({super.key});
-
+  const WeatherDayInformation({super.key, required this.weatherModel});
+  final WeatherModel? weatherModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,8 +39,8 @@ class WeatherDayInformation extends StatelessWidget {
             ),
           ),
           Image.asset("assets/Cloudy.png"),
-          const TempValueBuilder(
-            tembNum: "18",
+          TempValueBuilder(
+            tembNum: weatherModel!.dayTemp.ceil().toString(), //"18",
             tempFormat: "C",
             isforSmall: false,
           ),
