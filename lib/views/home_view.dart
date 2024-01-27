@@ -18,6 +18,8 @@ class HomeView extends StatelessWidget {
           return HomeViewBuilder(
             weatherModel:
                 BlocProvider.of<WeatherCubitCubit>(context).weatherInfo,
+            weatherPerDay:
+                BlocProvider.of<WeatherCubitCubit>(context).weatherPerDay,
           );
         } else if (state is WeatherCubitInitial) {
           return const Center(

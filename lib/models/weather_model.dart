@@ -16,14 +16,14 @@ class WeatherModel {
       required this.dayTemp,
       required this.dayHoures});
 
-  factory WeatherModel.fromJson(data, String cityName) {
+  factory WeatherModel.fromJson(data, String cityName, {int dayNumber = 0}) {
     return WeatherModel(
       cityname: cityName,
-      wetherState: data['list'][0]['weather'][0]['main'],
-      maxTmp: data['list'][0]['main']['temp_max'],
-      minTmp: data['list'][0]['main']['temp_min'],
-      dayTemp: data['list'][0]['main']['temp'],
-      dayHoures: data['list'][0]['dt_txt'],
+      wetherState: data['list'][dayNumber]['weather'][0]['main'],
+      maxTmp: data['list'][dayNumber]['main']['temp_max'],
+      minTmp: data['list'][dayNumber]['main']['temp_min'],
+      dayTemp: data['list'][dayNumber]['main']['temp'],
+      dayHoures: data['list'][dayNumber]['dt_txt'],
     );
   }
 }

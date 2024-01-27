@@ -32,17 +32,18 @@ class CustomSearchView extends StatelessWidget {
         ),
         BlocBuilder<WeatherCubitCubit, WeatherCubitState>(
           builder: (BuildContext context, WeatherCubitState state) {
-            WeatherModel? weatherModel =
+            //WeatherModel? weatherModel =
+            List<WeatherModel>? weatherModel =
                 BlocProvider.of<WeatherCubitCubit>(context).weatherInfo;
             if (state is WeatherLoadedState) {
               return CustomWeatherCard(
                 location: "My Location",
-                subTitle: weatherModel!.cityname,
-                weatherState: weatherModel.wetherState, //"Mostly Cloudy",
+                subTitle: weatherModel![0].cityname, //[0]
+                weatherState: weatherModel[0].wetherState, //"Mostly Cloudy",[0]
                 weatherImage: "assets/weather_pic/clouds1.jpg",
-                tempValue: weatherModel.dayTemp.toString(), //"18",
-                tempH: weatherModel.maxTmp.toString(), //"20",
-                tempL: weatherModel.minTmp.toString(), //"13",
+                tempValue: weatherModel[0].dayTemp.ceil().toString(), //"18",[0]
+                tempH: weatherModel[0].maxTmp.ceil().toString(), //"20",
+                tempL: weatherModel[0].minTmp.ceil().toString(), //"13",
               );
             } else if (state is WeatherFailurState) {
               return const Center(

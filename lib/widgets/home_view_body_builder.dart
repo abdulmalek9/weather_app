@@ -8,17 +8,20 @@ class HomeViewBuilder extends StatelessWidget {
   const HomeViewBuilder({
     super.key,
     this.weatherModel,
+    required this.weatherPerDay,
   });
-  final WeatherModel? weatherModel;
+  // final WeatherModel? weatherModel;
+  final List<WeatherModel>? weatherModel;
+  final Map<String, List<WeatherModel>> weatherPerDay;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         WeatherWidget(
-          cityTitle: weatherModel!.cityname, //"Damascuse"
-          weatherTitle: weatherModel!.wetherState, //"Cloudy"
+          cityTitle: weatherModel![0].cityname, //"Damascuse"
+          weatherTitle: weatherModel![1].wetherState, //"Cloudy"
           weatherImage: "assets/Cloudy.png",
-          tempr: weatherModel!.dayTemp.toString(), //"18"
+          tempr: weatherModel![1].dayTemp.ceil().toString(), //"18"
         ),
         const SizedBox(
           height: 55,
@@ -55,26 +58,39 @@ class HomeViewBuilder extends StatelessWidget {
         const SizedBox(
           height: 8.0,
         ),
-        const Column(
+        Column(
           children: [
             TempInfoPerDay(
               day: "Today",
               weatherImage: "assets/Cloudy.png",
-              tempMorningNum: '13',
-              tempNightNum: "19",
+              tempMorningNum:
+                  weatherPerDay["day 1"]![0].minTmp.ceil().toString(), //'13',
+              tempNightNum:
+                  weatherPerDay["day 1"]![weatherPerDay["day 1"]!.length - 1]
+                      .maxTmp
+                      .ceil()
+                      .toString(),
             ),
             TempInfoPerDay(
-              day: "Fri",
-              weatherImage: "assets/Sunny.png",
-              tempMorningNum: '13',
-              tempNightNum: "19",
-            ),
+                day: "Fri",
+                weatherImage: "assets/Sunny.png",
+                tempMorningNum:
+                    weatherPerDay["day 2"]![0].minTmp.ceil().toString(), //'13',
+                tempNightNum:
+                    weatherPerDay["day 2"]![weatherPerDay["day 2"]!.length - 1]
+                        .maxTmp
+                        .ceil()
+                        .toString()),
             TempInfoPerDay(
-              day: "Sat",
-              weatherImage: "assets/Partly_cloudy.png",
-              tempMorningNum: '14',
-              tempNightNum: "18",
-            ),
+                day: "Sat",
+                weatherImage: "assets/Partly_cloudy.png",
+                tempMorningNum:
+                    weatherPerDay["day 3"]![0].minTmp.ceil().toString(), //'13',
+                tempNightNum:
+                    weatherPerDay["day 3"]![weatherPerDay["day 3"]!.length - 1]
+                        .maxTmp
+                        .ceil()
+                        .toString()),
           ],
         )
       ],
