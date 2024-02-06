@@ -62,7 +62,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
       getResponsePerDay(cityName: cityName, dataCount: j);
       weatherInfo = weatherPerDay["day 1"];
       print("object=================");
-      getDayName();
+
       emit(WeatherLoadedState());
     } catch (e) {
       print("HHH=================");

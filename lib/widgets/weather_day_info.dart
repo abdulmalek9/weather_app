@@ -30,9 +30,9 @@ class WeatherDayInformation extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          const Text(
-            "Now",
-            style: TextStyle(
+          Text(
+            weatherModel!.dayHoures.split(" ")[1].substring(0, 5),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.w500,

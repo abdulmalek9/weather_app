@@ -48,15 +48,18 @@ class HomeViewBuilder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             WeatherDayInformation(weatherModel: weatherModel![0]),
-            weatherModel!.isEmpty
-                ? WeatherDayInformation(weatherModel: weatherModel![1])
-                : const SizedBox(),
-            weatherModel!.length >= 2
-                ? WeatherDayInformation(weatherModel: weatherModel![2])
-                : const SizedBox(),
-            weatherModel!.length >= 3
-                ? WeatherDayInformation(weatherModel: weatherModel![3])
-                : const SizedBox(),
+            if (weatherModel!.length > 1)
+              WeatherDayInformation(weatherModel: weatherModel![1])
+            else
+              WeatherDayInformation(weatherModel: weatherPerDay["day 2"]![0]),
+            if (weatherModel!.length > 2)
+              WeatherDayInformation(weatherModel: weatherModel![2])
+            else
+              WeatherDayInformation(weatherModel: weatherPerDay["day 2"]![1]),
+            if (weatherModel!.length > 3)
+              WeatherDayInformation(weatherModel: weatherModel![3])
+            else
+              WeatherDayInformation(weatherModel: weatherPerDay["day 2"]![2]),
           ],
         ),
         const SizedBox(
@@ -126,7 +129,7 @@ class SectionTitle extends StatelessWidget {
           width: 6.0,
         ),
         Text(
-          "5-Day Forecast",
+          "3-Day Forecast",
           style: TextStyle(color: Colors.white, fontSize: 16),
         )
       ],

@@ -24,8 +24,8 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
   }
 
   final List<Widget> tabs = [
-    const HomeView(),
     const CustomSearchView(),
+    const HomeView(),
     const SettingView(),
   ];
   @override
@@ -52,12 +52,12 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
                 onTap: _onItemTapped,
                 items: const [
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.cloud_queue_rounded),
-                    label: 'Weather',
-                  ),
-                  BottomNavigationBarItem(
                     icon: Icon(Icons.search),
                     label: 'Location',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.cloud_queue_rounded),
+                    label: 'Weather',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.settings_outlined),
