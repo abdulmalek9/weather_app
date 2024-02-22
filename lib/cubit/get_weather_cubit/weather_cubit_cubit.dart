@@ -1,10 +1,13 @@
 import 'dart:developer';
+// import 'package:geocode/geocode.dart
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/services/weather_service.dart';
-
+import 'package:geolocator/geolocator.dart';
+// import 'package:geocoding/geocoding.dart';
 part 'weather_cubit_state.dart';
 
 class WeatherCubitCubit extends Cubit<WeatherCubitState> {
@@ -31,8 +34,10 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
     for (int i = 0; i < dataCount! - 1; i++) {
       if (weatherModelAllday['list'][i]['dt_txt'].split(" ")[0] ==
           weatherModelAllday['list'][i + 1]['dt_txt'].split(" ")[0]) {
-        weatherPerDay[key]!.insert(count,
-            WeatherModel.fromJson(weatherModelAllday, cityName!, dayNumber: i));
+        weatherPerDay[key]!.insert(
+            count,
+            WeatherModel.fromJson(weatherModelAllday,
+                dayNumber: i)); // cityName!,
         count++;
 
         // weatherPerDay[key]!.add(WeatherModel.fromJson(
@@ -40,8 +45,10 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
         //     dayNumber: i));
         // print("for =========== $i");
       } else {
-        weatherPerDay[key]!.insert(count,
-            WeatherModel.fromJson(weatherModelAllday, cityName!, dayNumber: i));
+        weatherPerDay[key]!.insert(
+            count,
+            WeatherModel.fromJson(weatherModelAllday,
+                dayNumber: i)); // cityName!,
         // weatherPerDay[key]!.add(WeatherModel.fromJson(
         //     weatherModelAllday, cityName,
         //     dayNumber: i));
@@ -63,6 +70,21 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
       weatherInfo = weatherPerDay["day 1"];
       print("object=================");
 
+      // Position position = await _determinePosition();
+      // String lat = position.toString().split(" ")[1];
+      // // log("============= ${double.parse(lat.substring(0, lat.length - 1))}");
+      // log("============= $position");
+      // var address = await GeoCode().reverseGeocoding(
+      //   latitude: double.parse(lat.substring(0, lat.length - 1)),
+      //   longitude: double.parse(
+      //     position.toString().split(" ")[3],
+      //   ),
+      // );
+      // List<Placemark> placemarks = await placemarkFromCoordinates(
+      //   double.parse(lat.substring(0, lat.length - 1)),
+      //   double.parse(position.toString().split(" ")[3]),
+      // );
+      // log("The current location is $placemarks[0]");
       emit(WeatherLoadedState());
     } catch (e) {
       print("HHH=================");
@@ -78,8 +100,67 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
     // Your date string from the API
     DateTime parsedDate = DateFormat('dd-MM-yyyy').parse(dateString);
     dayName = DateFormat('EEEE').format(parsedDate);
+
     print('The day name is ${dayName.substring(0, 3)}');
     print('The dateString name is $dateString');
     return dayName.substring(0, 3);
+  }
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
+
+  getInitWeatherInfo() async {
+    try {
+      Position position = await determinePosition();
+      String lat = position.toString().split(" ")[1];
+      String lon = position.toString().split(" ")[3];
+
+      weatherModelAllday = await WeatherService(Dio()).getweatheresponseByGeo(
+          lat: lat.substring(0, lat.length - 1), lon: lon);
+
+      int j = weatherModelAllday['list'].length;
+      getResponsePerDay(dataCount: j);
+      weatherInfo = weatherPerDay["day 1"];
+      print("object=================");
+      emit(WeatherLoadedState());
+    } catch (e) {
+      print("HHH=================");
+      log(e.toString());
+      emit(WeatherFailurState());
+    }
   }
 }

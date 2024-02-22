@@ -16,9 +16,9 @@ class WeatherModel {
       required this.dayTemp,
       required this.dayHoures});
 
-  factory WeatherModel.fromJson(data, String cityName, {int dayNumber = 0}) {
+  factory WeatherModel.fromJson(data, {int dayNumber = 0}) {
     return WeatherModel(
-      cityname: cityName,
+      cityname: data['city']['name'].toString().split(" ")[0],
       wetherState: data['list'][dayNumber]['weather'][0]['main'],
       maxTmp: data['list'][dayNumber]['main']['temp_max'],
       minTmp: data['list'][dayNumber]['main']['temp_min'],

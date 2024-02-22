@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/cubit/get_weather_cubit/weather_cubit_cubit.dart';
 import 'package:weather_app/views/search_view.dart';
 import 'package:weather_app/views/setting_view.dart';
 import 'package:weather_app/widgets/back_ground_widget.dart';
@@ -21,6 +23,13 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<WeatherCubitCubit>(context)
+        .getInitWeatherInfo(); // Replace 'fetchData' with your desired function
   }
 
   final List<Widget> tabs = [

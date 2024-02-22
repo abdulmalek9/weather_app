@@ -27,6 +27,22 @@ class WeatherService {
     }
   }
 
+  Future<dynamic> getweatheresponseByGeo(
+      {required String lat, required String lon}) async {
+    try {
+      Response response = await dio.get(
+          '$baseUrl/2.5/forecast?lat=$lat&lon=$lon&units=metric&appid=$apiKey');
+      log("response.data ========== ${response.data}");
+      return response.data;
+    } on DioException catch (e) {
+      final String errorMessage = e.response?.data['message'] ??
+          "opps there was an error try again later";
+      throw Exception(errorMessage);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
   Future<Map<String, dynamic>> getWeatherInfo(
       {required String cityname}) async {
     //WeatherModel List<WeatherModel>?
