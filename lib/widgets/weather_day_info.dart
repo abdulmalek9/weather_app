@@ -38,7 +38,7 @@ class WeatherDayInformation extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          Image.asset("assets/Cloudy.png"),
+          Image.asset(weatherModel!.getImage()),
           TempValueBuilder(
             tembNum: weatherModel!.dayTemp.ceil().toString(), //"18",
             tempFormat: "C",

@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+
 class WeatherModel {
   final String cityname;
   final String wetherState;
@@ -25,5 +29,48 @@ class WeatherModel {
       dayTemp: data['list'][dayNumber]['main']['temp'].ceil(),
       dayHoures: data['list'][dayNumber]['dt_txt'],
     );
+  }
+  String getImage() {
+    int time = DateTime.parse(dayHoures).hour;
+    log("Time is : ============ ${DateTime.parse(dayHoures).hour}");
+    if (wetherState == 'Clear') {
+      return (time <= 12) ? 'assets/Sunny.png' : 'assets/Clear.png';
+    } else if (wetherState == 'Light Cloud') {
+      return 'assets/Partly_cloudy.png';
+    } else if (wetherState == 'Sleet') {
+      return 'assets/sleet.png';
+    } else if (wetherState == 'Snow' || wetherState == 'Hail') {
+      return 'assets/heavy_snow.png';
+    } else if (wetherState == 'Heavy Cloud') {
+      return 'assets/Cloudy.png';
+    } else if (wetherState == 'Light Rain' ||
+        wetherState == 'Heavy Rain' ||
+        wetherState == 'Showers	') {
+      return 'assets/rainy.png';
+    } else if (wetherState == 'Thunderstorm' || wetherState == 'Thunder') {
+      return 'assets/thunder.png';
+    } else {
+      return (time <= 12) ? 'assets/Sunny.png' : 'assets/Clear.png';
+    }
+  }
+
+  MaterialColor getThemeColor() {
+    if (wetherState == 'Clear' || wetherState == 'Light Cloud') {
+      return Colors.orange;
+    } else if (wetherState == 'Sleet' ||
+        wetherState == 'Snow' ||
+        wetherState == 'Hail') {
+      return Colors.blue;
+    } else if (wetherState == 'Heavy Cloud') {
+      return Colors.blueGrey;
+    } else if (wetherState == 'Light Rain' ||
+        wetherState == 'Heavy Rain' ||
+        wetherState == 'Showers	') {
+      return Colors.blue;
+    } else if (wetherState == 'Thunderstorm' || wetherState == 'Thunder') {
+      return Colors.deepPurple;
+    } else {
+      return Colors.orange;
+    }
   }
 }

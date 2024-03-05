@@ -22,7 +22,7 @@ class HomeViewBuilder extends StatelessWidget {
         WeatherWidget(
           cityTitle: weatherModel![0].cityname, //"Damascuse"
           weatherTitle: weatherModel![0].wetherState, //"Cloudy"
-          weatherImage: "assets/Cloudy.png",
+          weatherImage: weatherModel![0].getImage(),
           tempr: weatherModel![0].dayTemp.toString(), //"18"
         ),
         const SizedBox(
@@ -73,7 +73,7 @@ class HomeViewBuilder extends StatelessWidget {
           children: [
             TempInfoPerDay(
               day: "Today",
-              weatherImage: "assets/Cloudy.png",
+              weatherImage: weatherPerDay["day 1"]![0].getImage(),
               tempMorningNum:
                   weatherPerDay["day 1"]![0].minTmp.toString(), //'13',
               tempNightNum:
@@ -84,7 +84,7 @@ class HomeViewBuilder extends StatelessWidget {
             TempInfoPerDay(
                 day: BlocProvider.of<WeatherCubitCubit>(context).getDayName(
                     date: weatherPerDay["day 2"]![0].dayHoures), //"Fri",
-                weatherImage: "assets/Sunny.png",
+                weatherImage: weatherPerDay["day 2"]![0].getImage(),
                 tempMorningNum:
                     weatherPerDay["day 2"]![0].minTmp.ceil().toString(), //'13',
                 tempNightNum:
@@ -95,7 +95,7 @@ class HomeViewBuilder extends StatelessWidget {
             TempInfoPerDay(
                 day: BlocProvider.of<WeatherCubitCubit>(context)
                     .getDayName(date: weatherPerDay["day 3"]![0].dayHoures),
-                weatherImage: "assets/Partly_cloudy.png",
+                weatherImage: weatherPerDay["day 3"]![0].getImage(),
                 tempMorningNum:
                     weatherPerDay["day 3"]![0].minTmp.ceil().toString(), //'13',
                 tempNightNum:
