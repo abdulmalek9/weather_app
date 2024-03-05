@@ -2,6 +2,7 @@ import 'dart:developer';
 // import 'package:geocode/geocode.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:location/location.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:weather_app/models/weather_model.dart';
@@ -20,6 +21,13 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
   Map<String, dynamic> weatherModelAllday = {};
   String dayName = "";
 
+  Location location = Location(); //explicit reference to the Location class
+  Future checkGps() async {
+    if (!await location.serviceEnabled()) {
+      location.requestService();
+    }
+  }
+
   getResponsePerDay({String? cityName, int? dataCount}) {
     int dayNum = 1, count = 0;
     String key = "day $dayNum";
@@ -28,9 +36,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
       "day 2": [],
       "day 3": [],
       "day 4": [],
-      "day 5": [],
-      "day 6": [],
-    };
+    }; // "day 5": [], "day 6": [],
     for (int i = 0; i < dataCount! - 1; i++) {
       if (weatherModelAllday['list'][i]['dt_txt'].split(" ")[0] ==
           weatherModelAllday['list'][i + 1]['dt_txt'].split(" ")[0]) {
@@ -55,6 +61,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
         dayNum++;
         count = 0;
         key = "day $dayNum";
+        weatherPerDay[key] = [];
         // print("dayNum =========== $dayNum");
       }
     }
@@ -106,18 +113,28 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
     return dayName.substring(0, 3);
   }
 
+  Future<bool> requestPermission() async {
+    Location location = Location();
+    final permission = await location.requestPermission();
+    return permission == PermissionStatus.granted;
+  }
+
   Future<Position> determinePosition() async {
-    bool serviceEnabled;
+    // await checkGps();
+    // bool serviceEnabled;
     LocationPermission permission;
 
     // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return Future.error('Location services are disabled.');
-    }
+
+    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!serviceEnabled) {
+    //   await checkGps();
+    //   // location.requestService();
+    //   // Location services are not enabled don't continue
+    //   // accessing the position and request users of the
+    //   // App to enable the location services.
+    //   // return Future.error('Location services are disabled.');
+    // }
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {

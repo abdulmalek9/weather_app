@@ -2,9 +2,9 @@ class WeatherModel {
   final String cityname;
   final String wetherState;
   final String? icon;
-  final double maxTmp;
-  final double minTmp;
-  final double dayTemp; // List<double>
+  final int maxTmp;
+  final int minTmp;
+  final int dayTemp; // List<double>
   final String dayHoures; //List<String>
 
   WeatherModel(
@@ -20,9 +20,9 @@ class WeatherModel {
     return WeatherModel(
       cityname: data['city']['name'].toString().split(" ")[0],
       wetherState: data['list'][dayNumber]['weather'][0]['main'],
-      maxTmp: data['list'][dayNumber]['main']['temp_max'],
-      minTmp: data['list'][dayNumber]['main']['temp_min'],
-      dayTemp: data['list'][dayNumber]['main']['temp'],
+      maxTmp: data['list'][dayNumber]['main']['temp_max'].ceil(),
+      minTmp: data['list'][dayNumber]['main']['temp_min'].ceil(),
+      dayTemp: data['list'][dayNumber]['main']['temp'].ceil(),
       dayHoures: data['list'][dayNumber]['dt_txt'],
     );
   }

@@ -23,7 +23,7 @@ class HomeViewBuilder extends StatelessWidget {
           cityTitle: weatherModel![0].cityname, //"Damascuse"
           weatherTitle: weatherModel![0].wetherState, //"Cloudy"
           weatherImage: "assets/Cloudy.png",
-          tempr: weatherModel![0].dayTemp.ceil().toString(), //"18"
+          tempr: weatherModel![0].dayTemp.toString(), //"18"
         ),
         const SizedBox(
           height: 35,
@@ -75,11 +75,10 @@ class HomeViewBuilder extends StatelessWidget {
               day: "Today",
               weatherImage: "assets/Cloudy.png",
               tempMorningNum:
-                  weatherPerDay["day 1"]![0].minTmp.ceil().toString(), //'13',
+                  weatherPerDay["day 1"]![0].minTmp.toString(), //'13',
               tempNightNum:
                   weatherPerDay["day 1"]![weatherPerDay["day 1"]!.length - 1]
                       .maxTmp
-                      .ceil()
                       .toString(),
             ),
             TempInfoPerDay(
