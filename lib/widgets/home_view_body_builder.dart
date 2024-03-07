@@ -86,11 +86,10 @@ class HomeViewBuilder extends StatelessWidget {
                     date: weatherPerDay["day 2"]![0].dayHoures), //"Fri",
                 weatherImage: weatherPerDay["day 2"]![0].getImage(),
                 tempMorningNum:
-                    weatherPerDay["day 2"]![0].minTmp.ceil().toString(), //'13',
+                    weatherPerDay["day 2"]![0].minTmp.toString(), //'13',
                 tempNightNum:
                     weatherPerDay["day 2"]![weatherPerDay["day 2"]!.length - 1]
                         .maxTmp
-                        .ceil()
                         .toString()),
             TempInfoPerDay(
                 day: BlocProvider.of<WeatherCubitCubit>(context)

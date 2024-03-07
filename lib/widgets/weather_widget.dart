@@ -111,12 +111,12 @@ class WeatherWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 140,
-          right: 50,
+          top: 150,
+          right: 64,
           child: Image.asset(
             weatherImage,
-            width: 170,
-            height: 170,
+            width: 150,
+            height: 150,
           ),
         ),
       ],

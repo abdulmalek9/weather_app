@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gradient_borders/input_borders/gradient_outline_input_border.dart';
-import 'package:weather_app/cubit/get_weather_cubit/weather_cubit_cubit.dart';
+import 'package:weather_app/cubit/get_weather_from_search/get_weather_from_search_cubit.dart';
 
 class CustomSearchbar extends StatefulWidget {
   const CustomSearchbar({super.key});
@@ -84,7 +84,7 @@ class _CustomSearchbarState extends State<CustomSearchbar> {
       setState(() {});
       log('field is required');
     } else {
-      await BlocProvider.of<WeatherCubitCubit>(context)
+      await BlocProvider.of<GetWeatherFromSearchCubit>(context)
           .getWeatherInfo(cityName: value);
       // Navigator.push(
       //   context,

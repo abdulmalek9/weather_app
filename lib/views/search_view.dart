@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/cubit/get_weather_cubit/weather_cubit_cubit.dart';
+import 'package:weather_app/cubit/get_weather_from_search/get_weather_from_search_cubit.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/widgets/custom_search_bar.dart';
 import 'package:weather_app/widgets/weather_card_widget.dart';
@@ -38,30 +39,29 @@ class CustomSearchView extends StatelessWidget {
             if (state is WeatherLoadedState) {
               return CustomWeatherCard(
                 location: "My Location",
-                subTitle: weatherModel![0].cityname, //[0]
-                weatherState: weatherModel[0].wetherState, //"Mostly Cloudy",[0]
+                subTitle: weatherModel![0].cityname,
+                weatherState: weatherModel[0].wetherState, //"Mostly Cloudy"
                 weatherImage: "assets/weather_pic/clouds1.jpg",
-                tempValue: weatherModel[0].dayTemp.ceil().toString(), //"18",[0]
+                tempValue: weatherModel[0].dayTemp.ceil().toString(), //"18"
                 tempH: weatherModel[0].maxTmp.ceil().toString(), //"20",
                 tempL: weatherModel[0].minTmp.ceil().toString(), //"13",
               );
             } else if (state is WeatherFailurState) {
-              return const Center(
-                child: Text(
-                  "there is an error try agian",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
+              return const CustomWeatherCard(
+                location: "Ops...",
+                subTitle: "There was an error please try again",
+                weatherState: "",
+                tempValue: "",
+                tempH: "",
+                tempL: "",
+                weatherImage: "assets/weather_pic/clouds1.jpg",
               );
             } else {
-              return const Center(
-                child: Text(
-                  "Search of city to get weather",
-                  style: TextStyle(
+              return const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Center(
+                  child: CircularProgressIndicator(
                     color: Colors.white,
-                    fontSize: 24,
                   ),
                 ),
               );
@@ -71,15 +71,44 @@ class CustomSearchView extends StatelessWidget {
         const SizedBox(
           height: 16.0,
         ),
-        // const CustomWeatherCard(
-        //   location: "Homs",
-        //   subTitle: "3:36 AM",
-        //   weatherState: "Mostly Cloudy",
-        //   weatherImage: "assets/weather_pic/clouds0.jpg",
-        //   tempValue: "24",
-        //   tempH: "28",
-        //   tempL: "15",
-        // ),
+        BlocBuilder<GetWeatherFromSearchCubit, GetWeatherFromSearchState>(
+          builder: (BuildContext context, GetWeatherFromSearchState state) {
+            //WeatherModel? weatherModel =
+            List<WeatherModel>? weatherModel =
+                BlocProvider.of<GetWeatherFromSearchCubit>(context).weatherInfo;
+            if (state is GetWeatherLoadedState) {
+              return CustomWeatherCard(
+                location: "My Location",
+                subTitle: weatherModel![0].cityname,
+                weatherState: weatherModel[0].wetherState, //"Mostly Cloudy"
+                weatherImage: "assets/weather_pic/clouds0.jpg",
+                tempValue: weatherModel[0].dayTemp.ceil().toString(), //"18"
+                tempH: weatherModel[0].maxTmp.ceil().toString(), //"20",
+                tempL: weatherModel[0].minTmp.ceil().toString(), //"13",
+              );
+            } else if (state is GetWeatherFailurState) {
+              return const CustomWeatherCard(
+                location: "Ops...",
+                subTitle: "There was an error please try again",
+                weatherState: "",
+                tempValue: "",
+                tempH: "",
+                tempL: "",
+                weatherImage: "assets/weather_pic/clouds0.jpg",
+              );
+            } else {
+              return const CustomWeatherCard(
+                location: "Search For City",
+                subTitle: "To get The Information",
+                weatherState: "",
+                tempValue: "",
+                tempH: "",
+                tempL: "",
+                weatherImage: "assets/weather_pic/clouds0.jpg",
+              );
+            }
+          },
+        ),
       ],
     );
   }
