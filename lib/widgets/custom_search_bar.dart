@@ -86,6 +86,7 @@ class _CustomSearchbarState extends State<CustomSearchbar> {
     } else {
       await BlocProvider.of<GetWeatherFromSearchCubit>(context)
           .getWeatherInfo(cityName: value);
+
       // Navigator.push(
       //   context,
       //   MaterialPageRoute(

@@ -22,14 +22,15 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      // BlocProvider.of<GetWeatherFromSearchCubit>(context).indexView = index;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<WeatherCubitCubit>(context)
-        .getInitWeatherInfo(); // Replace 'fetchData' with your desired function
+    BlocProvider.of<WeatherCubitCubit>(context).getInitWeatherInfo();
+    // Replace 'fetchData' with your desired function
   }
 
   final List<Widget> tabs = [
