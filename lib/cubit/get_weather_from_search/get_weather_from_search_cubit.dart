@@ -9,6 +9,7 @@ part 'get_weather_from_search_state.dart';
 
 class GetWeatherFromSearchCubit extends Cubit<GetWeatherFromSearchState> {
   GetWeatherFromSearchCubit() : super(GetWeatherCubitInitial());
+  int indexView = 0;
 
   List<WeatherModel>? weatherInfo;
   Map<String, List<WeatherModel>> weatherPerDay = {};
