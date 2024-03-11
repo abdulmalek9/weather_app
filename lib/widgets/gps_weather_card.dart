@@ -38,14 +38,23 @@ class GpsWeatherCard extends StatelessWidget {
             weatherImage: "assets/weather_pic/clouds1.jpg",
           );
         } else {
-          return const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
+          return const CustomWeatherCard(
+            location: "Loading....",
+            subTitle: "",
+            weatherState: "",
+            tempValue: "",
+            tempH: "",
+            tempL: "",
+            weatherImage: "assets/weather_pic/clouds1.jpg",
           );
+          // return const Padding(
+          //   padding: EdgeInsets.all(16.0),
+          //   child: Center(
+          //     child: CircularProgressIndicator(
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // );
         }
       },
     );

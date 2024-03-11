@@ -22,7 +22,7 @@ class _CustomButtomNavigationBarState extends State<CustomButtomNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // BlocProvider.of<GetWeatherFromSearchCubit>(context).indexView = index;
+      // BlocProvider.of<WeatherCubitCubit>(context).indexView = index;
     });
   }
 

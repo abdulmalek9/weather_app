@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -32,9 +32,11 @@ class WeatherModel {
   }
   String getImage() {
     int time = DateTime.parse(dayHoures).hour;
-    log("Time is : ============ ${DateTime.parse(dayHoures).hour}");
+    // log("Time is : ============ ${DateTime.parse(dayHoures).hour}");
     if (wetherState == 'Clear') {
-      return (time <= 12) ? 'assets/Sunny.png' : 'assets/Clear.png';
+      return ((time >= 12) && (time < 18))
+          ? 'assets/Sunny.png'
+          : 'assets/Clear.png';
     } else if (wetherState == 'Light Cloud') {
       return 'assets/Partly_cloudy.png';
     } else if (wetherState == 'Sleet') {
@@ -50,7 +52,9 @@ class WeatherModel {
     } else if (wetherState == 'Thunderstorm' || wetherState == 'Thunder') {
       return 'assets/thunder.png';
     } else {
-      return (time <= 12) ? 'assets/Sunny.png' : 'assets/Clear.png';
+      return ((time >= 12) && (time < 18))
+          ? 'assets/Sunny.png'
+          : 'assets/Clear.png';
     }
   }
 

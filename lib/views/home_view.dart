@@ -24,7 +24,7 @@ class HomeView extends StatelessWidget {
         } else if (state is WeatherCubitInitial) {
           return const Center(
             child: Text(
-              'Make a Search of location To Get Information of Weather',
+              'Loading...',
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.white,

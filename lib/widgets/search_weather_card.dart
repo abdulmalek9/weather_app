@@ -18,7 +18,7 @@ class SearchWeatherCard extends StatelessWidget {
             BlocProvider.of<GetWeatherFromSearchCubit>(context).weatherInfo;
         if (state is GetWeatherLoadedState) {
           return CustomWeatherCard(
-            location: "My Location",
+            location: "City Name:",
             subTitle: weatherModel![0].cityname,
             weatherState: weatherModel[0].wetherState, //"Mostly Cloudy"
             weatherImage: "assets/weather_pic/clouds0.jpg",

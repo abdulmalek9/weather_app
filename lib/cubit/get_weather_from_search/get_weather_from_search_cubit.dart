@@ -9,7 +9,7 @@ part 'get_weather_from_search_state.dart';
 
 class GetWeatherFromSearchCubit extends Cubit<GetWeatherFromSearchState> {
   GetWeatherFromSearchCubit() : super(GetWeatherCubitInitial());
-  int indexView = 0;
+  bool isSearched = false;
 
   List<WeatherModel>? weatherInfo;
   Map<String, List<WeatherModel>> weatherPerDay = {};
@@ -90,9 +90,12 @@ class GetWeatherFromSearchCubit extends Cubit<GetWeatherFromSearchState> {
       //   double.parse(position.toString().split(" ")[3]),
       // );
       // log("The current location is $placemarks[0]");
+      isSearched = true;
       emit(GetWeatherLoadedState());
     } catch (e) {
       print("HHH=================");
+      isSearched = false;
+
       log(e.toString());
       emit(GetWeatherFailurState());
     }

@@ -25,7 +25,7 @@ class TempInfoPerDay extends StatelessWidget {
           ),
         ),
         const Spacer(
-          flex: 1,
+          flex: 2,
         ),
         Image(
           image: AssetImage(
@@ -34,9 +34,12 @@ class TempInfoPerDay extends StatelessWidget {
           width: 45,
           height: 45,
         ),
-        const SizedBox(
-          width: 42,
+        const Spacer(
+          flex: 1,
         ),
+        // const SizedBox(
+        //   width: 42,
+        // ),
         LineTempValueBuilder(
           tempMorningNum: tempMorningNum,
           tempNightNum: tempNightNum,

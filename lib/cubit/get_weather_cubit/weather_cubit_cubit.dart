@@ -14,6 +14,7 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
   WeatherCubitCubit() : super(WeatherCubitInitial());
   List<WeatherModel>? weatherInfo;
   Map<String, List<WeatherModel>> weatherPerDay = {};
+  int indexView = 0;
   // WeatherModel? weatherInfo;
   // WeatherModel? weatherModelAllday;
   // List<WeatherModel>? weatherModelAllday;
@@ -66,39 +67,6 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
     }
   }
 
-  getWeatherInfo({required String cityName}) async {
-    try {
-      weatherModelAllday =
-          await WeatherService(Dio()).getWeatherInfo(cityname: cityName);
-      // weatherInfo = [WeatherModel.fromJson(weatherModelAllday, cityName)];
-      int j = weatherModelAllday['list'].length;
-      getResponsePerDay(cityName: cityName, dataCount: j);
-      weatherInfo = weatherPerDay["day 1"];
-      print("object=================");
-
-      // Position position = await _determinePosition();
-      // String lat = position.toString().split(" ")[1];
-      // // log("============= ${double.parse(lat.substring(0, lat.length - 1))}");
-      // log("============= $position");
-      // var address = await GeoCode().reverseGeocoding(
-      //   latitude: double.parse(lat.substring(0, lat.length - 1)),
-      //   longitude: double.parse(
-      //     position.toString().split(" ")[3],
-      //   ),
-      // );
-      // List<Placemark> placemarks = await placemarkFromCoordinates(
-      //   double.parse(lat.substring(0, lat.length - 1)),
-      //   double.parse(position.toString().split(" ")[3]),
-      // );
-      // log("The current location is $placemarks[0]");
-      emit(WeatherLoadedState());
-    } catch (e) {
-      print("HHH=================");
-      log(e.toString());
-      emit(WeatherFailurState());
-    }
-  }
-
   getDayName({String? date}) {
     // String date = weatherModelAllday['list'][1]['dt_txt'].split(" ")[0];
     dynamic splitDate = date!.split(" ")[0].split('-');
@@ -107,8 +75,8 @@ class WeatherCubitCubit extends Cubit<WeatherCubitState> {
     DateTime parsedDate = DateFormat('dd-MM-yyyy').parse(dateString);
     dayName = DateFormat('EEEE').format(parsedDate);
 
-    print('The day name is ${dayName.substring(0, 3)}');
-    print('The dateString name is $dateString');
+    // print('The day name is ${dayName.substring(0, 3)}');
+    // print('The dateString name is $dateString');
     return dayName.substring(0, 3);
   }
 
