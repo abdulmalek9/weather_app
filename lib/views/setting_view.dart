@@ -7,6 +7,18 @@ class SettingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const BackGroundWidget(
-        childWidget: Center(child: Text("Settings here")));
+        childWidget: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 165,
+        ),
+        Text(
+          "We will add some Settings in Future",
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ],
+    ));
   }
 }
